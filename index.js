@@ -228,8 +228,10 @@ let showAll = document.querySelector('#showAll')
 let showFive = document.querySelector('#showFive')
 let h1 = document.querySelector('h1')
 let cart = []
+let showCard = document.querySelector('#menu')
 let modal = document.querySelector('.modal')
-let elem = document.querySelector('.elem')
+let modal_close = document.querySelector('.modal_close')
+let el = document.querySelector('.elem')
 
 
 
@@ -254,6 +256,7 @@ function reload(massiv) {
         let countImage = document.createElement("img");
         let count = document.createElement("span");
         let buttonAdd = document.createElement("button");
+        let b = document.createElement("b")
 
         item.classList.add("item", "fade");
         preview.classList.add("preview");
@@ -262,7 +265,9 @@ function reload(massiv) {
 
         info.classList.add("info");
         itemText.textContent = elem.title.length > 20 ? elem.title.slice(0, 17) + "..." : elem.title
-        itemDescription.innerHTML = elem.description.length > 100 ? elem.description.slice(0, 100) + " <b>read</b>" : elem.description
+        itemDescription.innerHTML = elem.description.slice(0, 100)
+        b.innerHTML = " read more..."
+
 
         miniInfo.classList.add("mini-info");
 
@@ -288,6 +293,7 @@ function reload(massiv) {
         item.append(preview, info);
         preview.append(previewImage);
         info.append(itemText, itemDescription, miniInfo, buttonAdd);
+        itemDescription.append(b)
         miniInfo.append(priceWrap, rateWrap, countWrap);
         priceWrap.append(priceImage, price);
         rateWrap.append(rateImage, rate);
@@ -307,22 +313,58 @@ function reload(massiv) {
                 cart.push(elem.id)
                 buttonAdd.classList.add('active')
                 buttonAdd.innerHTML = "Добавлено"
+                
             }
 
-            h1.innerHTML = `В корзине: ${cart.length} товар`
-            
+            h1.innerHTML = `В корзине: ${cart.length} товар` 
+            if (buttonAdd.classList.contains('active')) {
+                el.append(item)
         }
-        
-        
-        
-        
-        
-
-
+        }
+       
+        b.onclick = () => {
+            if (b.innerHTML === " read more...") {
+                itemDescription.innerHTML = elem.description
+                    b.innerHTML = " hide"
+            } else {
+                itemDescription.innerHTML = elem.description.slice(0, 100)
+                b.innerHTML = " read more..."
+        } 
+        itemDescription.append(b)
+        }
     }
-    if (buttonAdd.classList.contains('active')) {
-            elem.innerHTML = item
-        }
+    // el.innerHTML = ""
+    // for (let i of massiv) {
+    //     let it = document.createElement("div")
+    //     let view = document.createElement("div")
+    //     let viewImage = document.createElement("img")
+    //     let about = document.createElement("div")
+    //     let title = document.createElement("h2")
+    //     let count = document.createElement("h3")
+    //     let pls = document.createElement("button")
+    //     let num = document.createElement("h4")
+    //     let mns = document.createElement("button")
+    //     let price = document.createElement("h1")
+
+    //     it.classList.add("i")
+
+    //     viewImage.src = i.image
+    //     viewImage.src = i.title
+    //     title.innerHTML = i.title
+    //     container.innerHTML = "Количество:"
+    //     pls.innerHTML = "+"
+    //     mns.innerHTML = "-"
+    //     num.innerHTML = 1
+    //     price.innerHTML = i.price + "$"
+
+    //     el.append(it)
+    //     it.append(view)
+    //     view.append(viewImage)
+    //     viewImage.append(about)
+    //     about.append(title)
+    //     title.append(count)
+    //     count.append()
+    // }
 
 }
 
@@ -333,5 +375,42 @@ showAll.onclick = () => {
 showFive.onclick = () => {
     reload(arr.slice(0,5))
 }
-
+showCard.onclick = () => {
+    console.log("hi");
+    modal.classList.add('show')   
+    container.classList.add('hide')
+} 
+modal_close.onclick = () => {
+modal.classList.remove('show')
+container.classList.remove('hide')
+}
 reload(arr)
+
+
+// function rel(m) {
+//     el.innerHTML = ""
+//     for (let i of m) {
+//         let it = document.createElement("div")
+//         let view = document.createElement("div")
+//         let viewImage = document.createElement("img")
+//         let about = document.createElement("div")
+//         let title = document.createElement("h2")
+//         let count = document.createElement("h3")
+//         let pls = document.createElement("button")
+//         let num = document.createElement("h4")
+//         let mns = document.createElement("button")
+//         let price = document.createElement("h1")
+
+//         it.classList.add("i")
+
+//         viewImage.src = i.image
+//         viewImage.src = i.title
+//         title.innerHTML = i.title
+//         container.innerHTML = "Количество:"
+//         pls.innerHTML = "+"
+//         mns.innerHTML = "-"
+//         num.innerHTML = 1
+//         price.innerHTML = i.price
+//     }
+// }
+// rel(arr)
